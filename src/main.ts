@@ -7,17 +7,17 @@ import './scss/styles.scss';
 import { API_URL } from './utils/constants';
 import { apiProducts } from './utils/data';
 
-var catalog = new Catalog();
+const catalog = new Catalog();
 catalog.setItems(apiProducts.items);
 console.log('Массив товаров из каталога - ', catalog.getItems())
 
-var firstProduct = apiProducts.items.at(0);
+const firstProduct = apiProducts.items.at(0);
 console.log(`Получение продукта с идентификатором - ${firstProduct?.id}`, catalog.getProductById(firstProduct!.id));
 
 catalog.setSelectedProduct(firstProduct!.id);
 console.log(`Вывод выбранного продукта c идентификатором ${firstProduct!.id}`, catalog.getSelectedProduct());
 
-var buyer = new Buyer();
+const buyer = new Buyer();
 buyer.address = "Улица тестовая";
 console.log('Вывод улица', buyer.address);
 
@@ -36,13 +36,13 @@ console.log('Проверка работы валидации', buyer.validate()
 buyer.clear();
 console.log('Проверка метода очистки', buyer);
 
-var bucket = new Bucket();
+const bucket = new Bucket();
 bucket.add(firstProduct!);
 console.log('Положили товар в корзину', firstProduct);
 console.log('Вывод количества', bucket.getCount());
 console.log('Вывод товаров, которые лежат в корзине', bucket.getItems());
 
-var secondProduct = apiProducts.items.at(1);
+const secondProduct = apiProducts.items.at(1);
 console.log('Кладем еще товар в корзину', )
 bucket.add(secondProduct!);
 console.log('Вывод общей стоимости товаров, которые лежат в корзине', bucket.getTotalPrice());
@@ -56,8 +56,8 @@ console.log('Чистим корзину');
 bucket.clear();
 console.log('Проверяем что в корзине пусто', bucket.getItems());
 
-var backendApi = new BackendApi(new Api(API_URL));
-var result = await backendApi.getProducts();
+const backendApi = new BackendApi(new Api(API_URL));
+const result = await backendApi.getProducts();
 console.log(`Результат ответа с сервера`, result)
 
 catalog.setItems(result.items);
