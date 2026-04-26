@@ -24,7 +24,7 @@ console.log('Вывод улица', buyer.address);
 buyer.email = "test@test.ru"
 console.log('Установка и вывод электронной почты', buyer.email);
 
-buyer.payment = 'upon receipt';
+buyer.payment = 'card';
 console.log('Установка и вывод способа оплаты', buyer.payment);
 
 buyer.phone = "89111111111";

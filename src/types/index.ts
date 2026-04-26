@@ -21,7 +21,7 @@ export interface IBuyer {
     address: string;
 }
 
-export type TPayment = "upon receipt" | "online" | '';
+export type TPayment = "card" | "cash";
 
 export type ProductList = {
     total: number;

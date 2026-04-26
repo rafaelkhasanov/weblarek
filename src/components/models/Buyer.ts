@@ -5,12 +5,12 @@ import { IBuyer, TPayment } from "../../types";
 type BuyerErrors = Partial<Record<keyof IBuyer, string>>;
 
 export class Buyer implements IBuyer {
-  private _payment: TPayment = '';
+  private _payment: TPayment | null = null;
   private _email = '';
   private _phone = '';
   private _address = '';
 
-  get payment(): TPayment {
+  get payment(): TPayment | null {
     return this._payment;
   }
   set payment(value: TPayment) {
@@ -40,7 +40,7 @@ export class Buyer implements IBuyer {
 
   /** Очистка данных покупателя */
   clear(): void {
-    this._payment = '';
+    this._payment = null;
     this._email = '';
     this._phone = '';
     this._address = '';
