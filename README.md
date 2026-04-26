@@ -180,7 +180,7 @@ Presenter - презентер содержит основную логику п
 `clear(): void` - очистка данных покупателя 
 `validate(): BuyerErrors` - валидация данных о покупателе 
 
-#### Тип BuyerErrors
+#### Тип BuyerErrors = Partial<Record<keyof IBuyer, string>>;
 Описывание ошибки валидации информации о покупателе
 
 Поля типа: 
