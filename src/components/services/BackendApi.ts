@@ -1,4 +1,4 @@
-import { CreateOrder, CreateOrderSuccess, IApi, ProductList } from "../../types";
+import { IOrder, OrderSuccess, IApi, ProductList } from "../../types";
 
 export class BackendApi {
 
@@ -10,21 +10,11 @@ export class BackendApi {
 
     /** Метод отправки GET запроса на сервер для получения данных о списке продуктов */
     async getProducts(): Promise<ProductList> {
-        try {
-            return await this._api.get<ProductList>("/product");
-        }
-        catch (error) {
-            throw `Ошибка получения списка продуктов - ${error}` 
-        }
+        return await this._api.get<ProductList>("/product");
     }
 
     /** Метод для отправки POST запроса на сервер для создания заказа */
-    async createOrder(createOrder: CreateOrder): Promise<CreateOrderSuccess> {
-        try {
-            return await this._api.post<CreateOrderSuccess>("/order", createOrder);
-        }
-        catch (error) {
-            throw `Ошибка создания заказа - ${error}`
-        }
+    async createOrder(order: IOrder): Promise<OrderSuccess> {
+        return await this._api.post<OrderSuccess>("/order", order);
     }
 }
