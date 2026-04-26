@@ -57,8 +57,10 @@ bucket.clear();
 console.log('Проверяем что в корзине пусто', bucket.getItems());
 
 const backendApi = new BackendApi(new Api(API_URL));
-const result = await backendApi.getProducts();
-console.log(`Результат ответа с сервера`, result)
-
-catalog.setItems(result.items);
-console.log('Такие данные с сервера получили и положили в каталог', catalog.getItems());
+backendApi.getProducts()
+.then((result) => {
+    console.log(`Результат ответа с сервера`, result)
+    catalog.setItems(result.items);
+    console.log('Такие данные с сервера получили и положили в каталог', catalog.getItems());
+})
+.catch((reason) => console.error(`Ошибка запроса -, ${reason}`));
