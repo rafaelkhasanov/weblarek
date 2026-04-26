@@ -2,12 +2,7 @@
   /** Получение всех данных покупателя */
 import { IBuyer, TPayment } from "../../types";
 
-export type BuyerErrors = {
-    payment?: string;
-    email?: string;
-    phone?: string;
-    address?: string;
-};
+type BuyerErrors = Partial<Record<keyof IBuyer, string>>;
 
 export class Buyer implements IBuyer {
   private _payment: TPayment = '';
