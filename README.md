@@ -132,13 +132,13 @@ Presenter - презентер содержит основную логику п
 
 Поля класса: 
 `products: Map<string, IProduct>` - словарь товаров каталога
-`openedProductId: string | undefined` - идентификатор выбранного продукта
+`openedProduct: IProduct | null` - выбранный продукт
 
 Методы класса:
 `setItems(items: IProduct[]): void` - Заполнения каталога, принимает на вход массив IProduct
 `getItems(): IProduct[]` - Получения массива товаров каталога
 `getProductById(id: string): IProduct | undefined` - Получение продукта из каталога по идентификатору
-`getSelectedProduct(): IProduct | undefined` - Получение выбранного продукта
+`getSelectedProduct(): IProduct | null` - Получение выбранного продукта
 `setSelectedProduct(id: string): void` - Установить выбранный продукт
 
 #### Класс Bucket

@@ -2,11 +2,11 @@
 
 export class Catalog {
     private products: Map<string, IProduct>;
-    private openedProductId: string | undefined;
+    private openedProduct: IProduct | null;
 
     constructor() {
         this.products = new Map<string, IProduct>();
-        this.openedProductId = undefined;
+        this.openedProduct = null;
     }
 
     /** Заполнения каталога, принимает на вход массив IProduct */
@@ -28,16 +28,12 @@ export class Catalog {
     }
 
     /** Получение выбранного продукта */
-    getSelectedProduct(): IProduct | undefined {
-        if (this.openedProductId) {
-            return this.products.get(this.openedProductId)
-        }
-
-        return undefined;
+    getSelectedProduct(): IProduct | null {
+        return this.openedProduct;
     }
 
     /** Установить выбранный продукт */
     setSelectedProduct(id: string): void {
-        this.openedProductId = id;
+        this.openedProduct = this.products.get(id) ?? null;
     }
 }
