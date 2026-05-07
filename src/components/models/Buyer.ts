@@ -1,5 +1,4 @@
-﻿
-  /** Получение всех данных покупателя */
+﻿/** Получение всех данных покупателя */
 import { IBuyer, TPayment } from "../../types";
 import { IEvents } from "../base/Events";
 
@@ -7,9 +6,9 @@ type BuyerErrors = Partial<Record<keyof IBuyer, string>>;
 
 export class Buyer implements IBuyer {
   private _payment: TPayment | null = null;
-  private _email = '';
-  private _phone = '';
-  private _address = '';
+  private _email = "";
+  private _phone = "";
+  private _address = "";
   private _events: IEvents;
 
   constructor(events: IEvents) {
@@ -51,9 +50,9 @@ export class Buyer implements IBuyer {
   /** Очистка данных покупателя */
   clear(): void {
     this._payment = null;
-    this._email = '';
-    this._phone = '';
-    this._address = '';
+    this._email = "";
+    this._phone = "";
+    this._address = "";
     this._events.emit("buyer:clear");
   }
 
@@ -67,16 +66,16 @@ export class Buyer implements IBuyer {
     const errors: BuyerErrors = {};
 
     if (!this._payment) {
-      errors.payment = 'Не выбран вид оплаты';
+      errors.payment = "Не выбран вид оплаты";
     }
     if (!this._email) {
-      errors.email = 'Укажите email';
+      errors.email = "Укажите email";
     }
     if (!this._phone) {
-      errors.phone = 'Укажите телефон';
+      errors.phone = "Укажите телефон";
     }
     if (!this._address) {
-      errors.address = 'Необходимо указать адрес';
+      errors.address = "Необходимо указать адрес";
     }
 
     return errors;
