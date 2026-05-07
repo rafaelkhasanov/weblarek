@@ -8,7 +8,7 @@ import { Basket as BasketView } from "./components/views/Basket";
 import { CardBasket } from "./components/views/CardBasket";
 import { CardCatalog } from "./components/views/CardCatalog";
 import { CardPreview, ICardPreview, ProductBuyStateKey } from "./components/views/CardPreview";
-import { ContactsFrom } from "./components/views/ContactsForm";
+import { ContactsForm } from "./components/views/ContactsForm";
 import { Gallery } from "./components/views/Gallery";
 import { Header } from "./components/views/Header";
 import { Modal } from "./components/views/Modal";
@@ -71,7 +71,7 @@ const orderFormView = new OrderForm(cloneTemplate(orderFormTemplate), {
   },
 });
 
-const contactsFormView = new ContactsFrom(cloneTemplate(contactsFormTemplate), {
+const contactsFormView = new ContactsForm(cloneTemplate(contactsFormTemplate), {
   onPayClick: () => {
     events.emit("contacts-form:pay-click");
   },
