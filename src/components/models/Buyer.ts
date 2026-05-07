@@ -1,6 +1,7 @@
 ﻿
   /** Получение всех данных покупателя */
 import { IBuyer, TPayment } from "../../types";
+import { IEvents } from "../base/Events";
 
 type BuyerErrors = Partial<Record<keyof IBuyer, string>>;
 
@@ -9,12 +10,18 @@ export class Buyer implements IBuyer {
   private _email = '';
   private _phone = '';
   private _address = '';
+  private _events: IEvents;
+
+  constructor(events: IEvents) {
+    this._events = events;
+  }
 
   get payment(): TPayment | null {
     return this._payment;
   }
   set payment(value: TPayment) {
     this._payment = value;
+    this._events.emit("buyer:payment-change");
   }
 
   get email(): string {
@@ -22,6 +29,7 @@ export class Buyer implements IBuyer {
   }
   set email(value: string) {
     this._email = value;
+    this._events.emit("buyer:email-change");
   }
 
   get phone(): string {
@@ -29,6 +37,7 @@ export class Buyer implements IBuyer {
   }
   set phone(value: string) {
     this._phone = value;
+    this._events.emit("buyer:phone-change");
   }
 
   get address(): string {
@@ -36,6 +45,7 @@ export class Buyer implements IBuyer {
   }
   set address(value: string) {
     this._address = value;
+    this._events.emit("buyer:address-change");
   }
 
   /** Очистка данных покупателя */
@@ -44,6 +54,7 @@ export class Buyer implements IBuyer {
     this._email = '';
     this._phone = '';
     this._address = '';
+    this._events.emit("buyer:clear");
   }
 
   /**
