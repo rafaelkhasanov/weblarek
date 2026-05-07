@@ -1,7 +1,13 @@
 import { IProduct } from "../../types";
+import { IEvents } from "../base/Events";
 
-export class Bucket {
+export class Basket {
   private _items: Map<string, IProduct> = new Map();
+  private _events: IEvents;
+
+  constructor(events: IEvents) {
+    this._events = events;
+  }
 
   /** Получение массива товаров, которые находятся в корзине */
   getItems(): IProduct[] {
@@ -11,16 +17,19 @@ export class Bucket {
   /** Добавление товара, полученного в параметре, в массив корзины */
   add(item: IProduct): void {
     this._items.set(item.id, item);
+    this._events.emit("basket:change");
   }
 
   /** Удаление товара, полученного в параметре, из массива корзины */
   remove(item: IProduct): void {
     this._items.delete(item.id);
+    this._events.emit("basket:change");
   }
 
   /** Очистка корзины */
   clear(): void {
     this._items.clear();
+    this._events.emit("basket:change");
   }
 
   /** Получение стоимости всех товаров в корзине */
@@ -42,4 +51,3 @@ export class Bucket {
     return this._items.has(id);
   }
 }
-
