@@ -1,12 +1,12 @@
 import { ensureElement } from "../../utils/utils";
-import { Card, ICard, ICardActions } from "./Card";
+import { Card, CardData, ICardActions } from "./Card";
 
 /**
  * Класс карточки товара в корзине покупателя.
- * Наследуется от абстрактного класса Card<ICardBasket> и предоставляет
+ * Наследуется от абстрактного класса Card<CardBasketData> и предоставляет
  * функциональность для отображения позиции товара в корзине и кнопки удаления.
  */
-export class CardBasket extends Card<ICardBasket> {
+export class CardBasket extends Card<CardBasketData> {
   /** Кнопка удаления товара из корзины */
   protected deleteButton: HTMLButtonElement;
   /** Элемент отображения номера позиции товара в корзине */
@@ -45,11 +45,8 @@ export class CardBasket extends Card<ICardBasket> {
 }
 
 /**
- * Интерфейс данных карточки товара в корзине.
- * Расширяет интерфейс ICard и добавляет поле для номера позиции.
+ * Тип данных карточки товара в корзине.
+ * Расширяет базовый тип CardData и добавляет поле номера позиции.
  */
-export interface ICardBasket extends ICard {
-  /** Номер позиции товара в корзине */
-  index: number;
-}
+export type CardBasketData = CardData & { index: number };
 

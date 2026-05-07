@@ -13,10 +13,10 @@ export type ProductBuyStateKey = keyof typeof productBuyStateMap;
 
 /**
  * Класс превью карточки товара (для просмотра деталей).
- * Наследуется от абстрактного класса Card<ICardPreview> и предоставляет
+ * Наследуется от абстрактного класса Card<CardPreviewData> и предоставляет
  * функциональность для отображения изображения, категории, описания и кнопки покупки.
  */
-export class CardPreview extends Card<ICardPreview> {
+export class CardPreview extends Card<CardPreviewData> {
   /** Элемент отображения изображения товара */
   protected imageElement: HTMLImageElement;
   /** Элемент отображения категории товара */
@@ -103,10 +103,9 @@ export class CardPreview extends Card<ICardPreview> {
 }
 
 /**
- * Интерфейс данных превью карточки товара.
- * Расширяет интерфейс IProduct и добавляет поле для состояния покупки.
+ * Тип данных превью карточки товара.
+ * Содержит все поля из интерфейса IProduct и добавляет поле состояния покупки.
+ * Используется для передачи данных в компонент CardPreview.
  */
-export interface ICardPreview extends IProduct {
-  /** Текущее состояние покупки товара */
-  buyState: ProductBuyStateKey;
-}
+export type CardPreviewData = IProduct & { buyState: ProductBuyStateKey };
+

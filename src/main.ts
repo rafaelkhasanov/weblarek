@@ -7,7 +7,7 @@ import { BackendApi } from "./components/services/BackendApi";
 import { Basket as BasketView } from "./components/views/Basket";
 import { CardBasket } from "./components/views/CardBasket";
 import { CardCatalog } from "./components/views/CardCatalog";
-import { CardPreview, ICardPreview, ProductBuyStateKey } from "./components/views/CardPreview";
+import { CardPreview, CardPreviewData, ProductBuyStateKey } from "./components/views/CardPreview";
 import { ContactsForm } from "./components/views/ContactsForm";
 import { Gallery } from "./components/views/Gallery";
 import { Header } from "./components/views/Header";
@@ -63,8 +63,8 @@ const orderFormView = new OrderForm(cloneTemplate(orderFormTemplate), {
   onPaymentClick: (event) => {
     events.emit("order-form:payment-click", event);
   },
-  onInputChange: (event) => {
-    events.emit("order-form:input-change", event);
+  onAddressChange: (event) => {
+    events.emit("order-form:address-change", event);
   },
   onNextClick: () => {
     events.emit("order-form:next-click");
@@ -75,8 +75,11 @@ const contactsFormView = new ContactsForm(cloneTemplate(contactsFormTemplate), {
   onPayClick: () => {
     events.emit("contacts-form:pay-click");
   },
-  onInputChange: (event) => {
-    events.emit("contacts-form:input-change", event);
+  onInputEmailChange: (event) => {
+    events.emit("contacts-form:email-change", event);
+  },
+  onInputPhoneChange: (event) => {
+    events.emit("contacts-form:phone-change", event);
   },
 });
 
@@ -155,11 +158,14 @@ const onBasketChange = () => {
 };
 
 const onBasketViewOrderClick = () => {
-  const renderedOrderForm = orderFormView.render({});
+  const renderedOrderForm = orderFormView.render({
+    address: buyer.address,
+    payment: buyer.payment
+  });
   modalView.render({ content: renderedOrderForm });
 };
 
-const onCardPreviewClick = (product: ICardPreview) => {
+const onCardPreviewClick = (product: CardPreviewData) => {
   if (product.buyState === "delete") {
     basket.remove(product);
   } else if (product.buyState === "buy") {
@@ -178,7 +184,7 @@ const onOrderFormPaymentClick = (event: Event) => {
       : "cash";
 };
 
-const onOrderFormInputChange = (event: Event) => {
+const onOrderFormAddressChange = (event: Event) => {
   const input = event.target as HTMLInputElement;
   buyer.address = input.value;
 };
@@ -187,7 +193,8 @@ const onAddressOrPaymentChange = (): void => {
   const { payment, address } = buyer.validate();
   const renderedOrderForm = orderFormView.render({
     errors: [payment, address],
-    activePayment: buyer.payment,
+    payment: buyer.payment,
+    address: buyer.address
   });
 
   modalView.render({ content: renderedOrderForm });
@@ -197,13 +204,18 @@ const onEmailOrPhoneChange = () => {
   const { email, phone } = buyer.validate();
   const renderedOrderForm = contactsFormView.render({
     errors: [email, phone],
+    email: buyer.email,
+    phone: buyer.phone
   });
 
   modalView.render({ content: renderedOrderForm });
 };
 
 const onOrderFormNextClick = () => {
-  const contactsForm = contactsFormView.render({});
+  const contactsForm = contactsFormView.render({
+    email: buyer.email,
+    phone: buyer.phone
+  });
   modalView.render({ content: contactsForm });
 };
 
@@ -255,8 +267,9 @@ events.on("buyer:address-change", onAddressOrPaymentChange);
 events.on("buyer:payment-change", onAddressOrPaymentChange);
 events.on("buyer:email-change", onEmailOrPhoneChange);
 events.on("buyer:phone-change", onEmailOrPhoneChange);
-events.on("order-form:input-change", onOrderFormInputChange);
+events.on("order-form:address-change", onOrderFormAddressChange);
 events.on("order-form:next-click", onOrderFormNextClick);
 events.on("contacts-form:pay-click", onContactsFormPayClick);
-events.on("contacts-form:input-change", onContactsFormInputChange);
+events.on("contacts-form:email-change", onContactsFormInputChange);
+events.on("contacts-form:phone-change", onContactsFormInputChange);
 

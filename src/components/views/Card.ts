@@ -1,3 +1,4 @@
+import { IProduct } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 
@@ -48,16 +49,10 @@ export abstract class Card<T> extends Component<T> {
 }
 
 /**
- * Интерфейс данных карточки товара.
- * Определяет структуру данных, которые могут быть переданы
- * в метод render для отображения в компоненте Card.
+ * Тип данных карточки товара.
+ * Описывает минимальный набор полей для отображения карточки.
  */
-export interface ICard {
-  /** Название товара */
-  title: string;
-  /** Цена товара */
-  price: number | null;
-}
+export type CardData = Pick<IProduct, "title" | "price">
 
 /**
  * Интерфейс обработчиков событий карточки.

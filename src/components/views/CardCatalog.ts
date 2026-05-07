@@ -1,15 +1,16 @@
+import { IProduct } from "../../types";
 import { categoryMap } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { Card, ICard, ICardActions } from "./Card";
+import { Card, CardData, ICardActions } from "./Card";
 
 type CategoryKey = keyof typeof categoryMap;
 
 /**
  * Класс карточки товара в каталоге.
- * Наследуется от абстрактного класса Card<ICardCatalog> и предоставляет
+ * Наследуется от абстрактного класса Card<CardCatalogData> и предоставляет
  * функциональность для отображения изображения, категории и названия товара.
  */
-export class CardCatalog extends Card<ICardCatalog> {
+export class CardCatalog extends Card<CardCatalogData> {
   /** Элемент отображения изображения товара */
   protected imageElement: HTMLImageElement;
   /** Элемент отображения категории товара */
@@ -63,13 +64,9 @@ export class CardCatalog extends Card<ICardCatalog> {
 }
 
 /**
- * Интерфейс данных карточки товара в каталоге.
- * Расширяет интерфейс ICard и добавляет поля для категории и изображения.
+ * Тип данных карточки товара в каталоге.
+ * Расширяет базовый тип CardData и добавляет поля категории и изображения.
+ * Используется для передачи данных в компонент CardCatalog.
  */
-export interface ICardCatalog extends ICard {
-  /** Категория товара */
-  category: string;
-  /** URL изображения товара */
-  image: string;
-}
+export type CardCatalogData = CardData & Pick<IProduct, "category" | "image">;
 

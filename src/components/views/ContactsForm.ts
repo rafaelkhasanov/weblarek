@@ -1,31 +1,85 @@
-import { Form, IForm, IFormActions } from "./Form";
+import { ensureElement } from "../../utils/utils";
+import { Buyer } from "../models/Buyer";
+import { Form, FormData } from "./Form";
 
 /**
  * Класс формы контактов для оформления заказа.
- * Наследуется от Form<IForm> и предоставляет функциональность
+ * Наследуется от Form<ContactsFormData> и предоставляет функциональность
  * для отображения и валидации контактных данных покупателя.
  */
-export class ContactsForm extends Form<IForm> {
+export class ContactsForm extends Form<ContactsFormData> {
+  protected inputEmailElement: HTMLInputElement;
+  protected inputPhoneElement: HTMLInputElement;
+
   /**
    * Создаёт экземпляр формы контактов.
    * @param contactsForm - корневой DOM-элемент контейнера формы
-   * @param actions - обработчик клика по кнопке оплаты
+   * @param actions - обработчики событий формы
    */
   constructor(contactsForm: HTMLFormElement, actions?: IContactsFormActions) {
-    super(contactsForm, actions);
+    super(contactsForm);
+
+    this.inputEmailElement = ensureElement<HTMLInputElement>(
+      'input[name="email"]',
+      this.container
+    );
+    this.inputPhoneElement = ensureElement<HTMLInputElement>(
+      'input[name="phone"]',
+      this.container
+    );
 
     if (actions?.onPayClick) {
       this.button.addEventListener("click", actions.onPayClick);
     }
+
+    if (actions?.onInputEmailChange) {
+      this.inputEmailElement.addEventListener(
+        "change",
+        actions.onInputEmailChange
+      );
+    }
+
+    if (actions?.onInputPhoneChange) {
+      this.inputPhoneElement.addEventListener(
+        "change",
+        actions.onInputPhoneChange
+      );
+    }
+  }
+
+  /**
+   * Устанавливает значение поля телефона.
+   * @param value - значение телефонного номера
+   */
+  set phone(value: string) {
+    this.inputPhoneElement.value = value;
+  }
+
+  /**
+   * Устанавливает значение поля email.
+   * @param value - значение электронной почты
+   */
+  set email(value: string) {
+    this.inputEmailElement.value = value;
   }
 }
 
 /**
- * Интерфейс обработчиков событий формы контактов.
- * Расширяет интерфейс IFormActions и добавляет обработчик клика по кнопке оплаты.
+ * Тип данных формы контактов.
+ * Содержит поля email и phone из Buyer, а также ошибки валидации.
  */
-export interface IContactsFormActions extends IFormActions {
+export type ContactsFormData = Pick<Buyer, "phone" | "email"> & FormData;
+
+/**
+ * Интерфейс обработчиков событий формы контактов.
+ * Расширяет функциональность обработки событий ввода и оплаты.
+ */
+export interface IContactsFormActions {
   /** Обработчик клика по кнопке оплаты */
   onPayClick(): void;
+  /** Обработчик изменения поля email */
+  onInputEmailChange(event: Event): void;
+  /** Обработчик изменения поля phone */
+  onInputPhoneChange(event: Event): void;
 }
 
