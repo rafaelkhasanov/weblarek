@@ -1,6 +1,16 @@
 import { Form, IForm, IFormActions } from "./Form";
 
-export class ContactsFrom extends Form<IForm> {
+/**
+ * Класс формы контактов для оформления заказа.
+ * Наследуется от Form<IForm> и предоставляет функциональность
+ * для отображения и валидации контактных данных покупателя.
+ */
+export class ContactsForm extends Form<IForm> {
+  /**
+   * Создаёт экземпляр формы контактов.
+   * @param contactsForm - корневой DOM-элемент контейнера формы
+   * @param actions - обработчик клика по кнопке оплаты
+   */
   constructor(contactsForm: HTMLFormElement, actions?: IContactsFormActions) {
     super(contactsForm, actions);
 
@@ -10,6 +20,12 @@ export class ContactsFrom extends Form<IForm> {
   }
 }
 
+/**
+ * Интерфейс обработчиков событий формы контактов.
+ * Расширяет интерфейс IFormActions и добавляет обработчик клика по кнопке оплаты.
+ */
 export interface IContactsFormActions extends IFormActions {
+  /** Обработчик клика по кнопке оплаты */
   onPayClick(): void;
 }
+
