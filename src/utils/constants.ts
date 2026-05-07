@@ -16,6 +16,12 @@ export const categoryMap = {
   'другое': 'card__category_other',
 };
 
+export const productBuyStateMap = {
+  buy: "Купить",
+  delete: "Удалить из корзины",
+  notAvailable: "Недоступно",
+};
+
 export const settings = {
 
 };
