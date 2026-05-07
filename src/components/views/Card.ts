@@ -56,7 +56,7 @@ export interface ICard {
   /** Название товара */
   title: string;
   /** Цена товара */
-  price: number;
+  price: number | null;
 }
 
 /**
