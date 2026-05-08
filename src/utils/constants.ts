@@ -19,7 +19,7 @@ export const categoryMap = {
 export const productBuyStateMap = {
   buy: "Купить",
   delete: "Удалить из корзины",
-  notAvailable: "Недоступно",
+  notAvailable: "Бесценно",
 };
 
 export const settings = {
