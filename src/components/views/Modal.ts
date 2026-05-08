@@ -15,9 +15,8 @@ export class Modal extends Component<IModal> {
   /**
    * Создаёт экземпляр модального окна.
    * @param modal - корневой DOM-элемент контейнера модального окна
-   * @param actions - обработчик клика для закрытия модального окна
    */
-  constructor(modal: HTMLElement, actions?: IModalActions) {
+  constructor(modal: HTMLElement) {
     super(modal);
     this.modalCloseButton = ensureElement<HTMLButtonElement>(
       ".modal__close",
@@ -28,11 +27,8 @@ export class Modal extends Component<IModal> {
       this.container
     );
 
-    if (actions?.onClose) {
-      this.modalCloseButton.addEventListener("click", actions.onClose);
-      this.container.addEventListener("click", actions.onClose);
-    }
-
+    this.modalCloseButton.addEventListener("click", this.close);
+    this.container.addEventListener("click", this.close);
     this.modalContent.addEventListener("click", (event: Event) =>
       event.stopPropagation()
     );
@@ -45,6 +41,24 @@ export class Modal extends Component<IModal> {
    */
   set content(element: HTMLElement) {
     this.modalContent.replaceChildren(element);
+  }
+
+  /**
+   * Открывает модальное окно.
+   * Добавляет CSS-класс "modal_active" к контейнеру модального окна,
+   * делая его видимым на странице.
+   */
+  open = () => {
+    this.container.classList.add("modal_active");
+  }
+
+  /**
+   * Закрывает модальное окно.
+   * Удаляет CSS-класс "modal_active" из контейнера модального окна,
+   * скрывая его со страницы.
+   */
+  close = () => {
+    this.container.classList.remove("modal_active");
   }
 }
 

@@ -43,18 +43,13 @@ const headerView = new Header(header, {
       basketItems: renderCardBasketItems(),
       price: basket.getTotalPrice(),
     });
-    modalElement.classList.add("modal_active");
+    modalView.open();
     modalView.render({ content: renderedBasketView });
   },
 });
 
 const galeryView = new Gallery(galeryElement);
-const modalView = new Modal(modalElement, {
-  onClose: () => {
-    modalElement.classList.remove("modal_active");
-  },
-});
-
+const modalView = new Modal(modalElement);
 const basketView = new BasketView(cloneTemplate(basketTemplate), {
   onOrderClick: () => events.emit("basket-view:order-click"),
 });
@@ -85,7 +80,7 @@ const contactsFormView = new ContactsForm(cloneTemplate(contactsFormTemplate), {
 
 const orderSuccessView = new OrderSuccess(cloneTemplate(orderSuccessTemplate), {
   onOrderSuccessClick: () => {
-    modalElement.classList.remove("modal_active");
+    modalView.close();
     buyer.clear();
     basket.clear();
   },
@@ -140,7 +135,7 @@ const onChangeSelectedProduct = () => {
   });
 
   const renderedPreview = cardPreview.render(cardPreviewData);
-  modalElement.classList.toggle("modal_active");
+  modalView.open();
   modalView.render({ content: renderedPreview });
 };
 
@@ -172,7 +167,7 @@ const onCardPreviewClick = (product: CardPreviewData) => {
     basket.add(product);
   }
 
-  modalElement.classList.toggle("modal_active");
+  modalView.open();
 };
 
 const onOrderFormPaymentClick = (event: Event) => {
