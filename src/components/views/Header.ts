@@ -28,8 +28,8 @@ export class Header extends Component<IHeader> {
       this.container
     );
 
-    if (actions.onBasketOpen) {
-      this.basketButton.addEventListener("click", actions.onBasketOpen);
+    if (actions.onBasketClick) {
+      this.basketButton.addEventListener("click", actions.onBasketClick);
     }
   }
 
@@ -53,6 +53,6 @@ interface IHeader {
 }
 
 interface IBasketActions {
-  onBasketOpen(): void;
+  onBasketClick(): void;
 }
 

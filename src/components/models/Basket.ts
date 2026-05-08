@@ -29,7 +29,7 @@ export class Basket {
   /** Очистка корзины */
   clear(): void {
     this._items.clear();
-    this._events.emit("basket:change");
+    this._events.emit("basket:clear");
   }
 
   /** Получение стоимости всех товаров в корзине */

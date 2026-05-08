@@ -38,7 +38,7 @@ const buyer = new Buyer(events);
 const basket = new Basket(events);
 
 const headerView = new Header(header, {
-  onBasketOpen: () => events.emit("header-view:basket-click")
+  onBasketClick: () => events.emit("header-view:basket-click"),
 });
 
 const galeryView = new Gallery(galeryElement);
@@ -65,7 +65,8 @@ const orderFormView = new OrderForm(cloneTemplate(orderFormTemplate), {
 });
 
 const contactsFormView = new ContactsForm(cloneTemplate(contactsFormTemplate), {
-  onPayClick: () => {
+  onPayClick: (event: Event) => {
+    event.preventDefault();
     events.emit("contacts-form:pay-click");
   },
   onInputEmailChange: (event) => {
@@ -95,7 +96,8 @@ const onCatalogChange = () => {
       onClick: (event: Event) => {
         event.stopPropagation();
         events.emit("card-catalog:select", item);
-    }});
+      },
+    });
     return card.render(item);
   });
 
@@ -212,10 +214,30 @@ const onOrderFormNextClick = () => {
 };
 
 const onContactsFormPayClick = () => {
-  const renderedOrderSuccess = orderSuccessView.render({
-    totalPrice: basket.getTotalPrice(),
-  });
-  modalView.render({ content: renderedOrderSuccess });
+  const basketItemIds = basket.getItems().map((x) => x.id);
+  backendApi
+    .createOrder({
+      address: buyer.address,
+      email: buyer.email,
+      payment: buyer.payment,
+      phone: buyer.phone,
+      total: basket.getTotalPrice(),
+      items: basketItemIds,
+    })
+    .then((value: OrderSuccess) => {
+      const renderedOrderSuccess = orderSuccessView.render({
+        totalPrice: value.total,
+      });
+      modalView.render({ content: renderedOrderSuccess });
+
+      basket.clear();
+      buyer.clear();
+    })
+    .catch((reason) => 
+    {
+      console.error(`Ошибка запроса -, ${reason}`)
+    }
+  );
 };
 
 const onContactsFormInputChange = (event: Event) => {
@@ -241,13 +263,15 @@ const onHeaderViewBasketClick = () => {
 };
 
 const onOrderSuccessClick = () => {
-    modalView.close();
-    buyer.clear();
-    basket.clear();
-}
+  modalView.close();
+};
 
 const onModalCloseClick = () => {
   modalView.close();
+};
+
+const onBasketClear = () => {
+  headerView.render({counter: basket.getCount()})
 }
 
 const renderCardBasketItems = (): HTMLElement[] => {
@@ -285,5 +309,5 @@ events.on("contacts-form:pay-click", onContactsFormPayClick);
 events.on("contacts-form:email-change", onContactsFormInputChange);
 events.on("contacts-form:phone-change", onContactsFormInputChange);
 events.on("order-success-view:click", onOrderSuccessClick);
-events.on("modal-view:close-click", onModalCloseClick)
-
+events.on("modal-view:close-click", onModalCloseClick);
+events.on("basket:clear", onBasketClear)

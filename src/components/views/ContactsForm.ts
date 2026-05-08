@@ -76,7 +76,7 @@ type ContactsFormData = Pick<Buyer, "phone" | "email"> & FormData;
  */
 interface IContactsFormActions {
   /** Обработчик клика по кнопке оплаты */
-  onPayClick(): void;
+  onPayClick(event: Event): void;
   /** Обработчик изменения поля email */
   onInputEmailChange(event: Event): void;
   /** Обработчик изменения поля phone */
