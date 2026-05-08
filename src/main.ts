@@ -38,21 +38,12 @@ const buyer = new Buyer(events);
 const basket = new Basket(events);
 
 const headerView = new Header(header, {
-  onBasketOpen: () => {
-    const renderedBasketView = basketView.render({
-      basketItems: renderCardBasketItems(),
-      price: basket.getTotalPrice(),
-    });
-    modalView.open();
-    modalView.render({ content: renderedBasketView });
-  },
+  onBasketOpen: () => events.emit("header-view:basket-click")
 });
 
 const galeryView = new Gallery(galeryElement);
 const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
-    onClick: () => {
-      events.emit("card-preview:click");
-    },
+    onClick: () => events.emit("card-preview:click")
   });
 const modalView = new Modal(modalElement);
 const basketView = new BasketView(cloneTemplate(basketTemplate), {
@@ -84,11 +75,7 @@ const contactsFormView = new ContactsForm(cloneTemplate(contactsFormTemplate), {
 });
 
 const orderSuccessView = new OrderSuccess(cloneTemplate(orderSuccessTemplate), {
-  onOrderSuccessClick: () => {
-    modalView.close();
-    buyer.clear();
-    basket.clear();
-  },
+  onOrderSuccessClick: () => events.emit("order-success-view:click"),
 });
 
 const backendApi = new BackendApi(new Api(API_URL));
@@ -238,6 +225,21 @@ const onContactsFormInputChange = (event: Event) => {
   }
 };
 
+const onHeaderViewBasketClick = () => {
+  const renderedBasketView = basketView.render({
+    basketItems: renderCardBasketItems(),
+    price: basket.getTotalPrice(),
+  });
+  modalView.open();
+  modalView.render({ content: renderedBasketView });
+};
+
+const onOrderSuccessClick = () => {
+    modalView.close();
+    buyer.clear();
+    basket.clear();
+}
+
 const renderCardBasketItems = (): HTMLElement[] => {
   const items = basket.getItems().map((item, index) => {
     const cardBasket = new CardBasket(cloneTemplate(cardBasketTemplate), {
@@ -261,6 +263,7 @@ events.on("card-catalog:select", onSelectedProduct);
 events.on("catalog:change-selected-product", onChangeSelectedProduct);
 events.on("basket:change", onBasketChange);
 events.on("basket-view:order-click", onBasketViewOrderClick);
+events.on("header-view:basket-click", onHeaderViewBasketClick);
 events.on("order-form:payment-click", onOrderFormPaymentClick);
 events.on("buyer:address-change", onAddressOrPaymentChange);
 events.on("buyer:payment-change", onAddressOrPaymentChange);
@@ -271,4 +274,5 @@ events.on("order-form:next-click", onOrderFormNextClick);
 events.on("contacts-form:pay-click", onContactsFormPayClick);
 events.on("contacts-form:email-change", onContactsFormInputChange);
 events.on("contacts-form:phone-change", onContactsFormInputChange);
+events.on("order-success-view:click", onOrderSuccessClick)
 
