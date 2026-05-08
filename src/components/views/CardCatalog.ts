@@ -59,7 +59,7 @@ export class CardCatalog extends Card<CardCatalogData> {
    * @param value - URL изображения товара
    */
   set image(value: string) {
-    this.setImage(this.imageElement, value, this.title);
+    this.setImage(this.imageElement, value);
   }
 }
 
