@@ -45,7 +45,9 @@ const galeryView = new Gallery(galeryElement);
 const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
     onClick: () => events.emit("card-preview:click")
   });
-const modalView = new Modal(modalElement);
+const modalView = new Modal(modalElement, {
+  onClose: () => events.emit("modal-view:close")
+});
 const basketView = new BasketView(cloneTemplate(basketTemplate), {
   onOrderClick: () => events.emit("basket-view:order-click"),
 });
@@ -240,6 +242,10 @@ const onOrderSuccessClick = () => {
     basket.clear();
 }
 
+const onModalClose = () => {
+  modalView.close();
+}
+
 const renderCardBasketItems = (): HTMLElement[] => {
   const items = basket.getItems().map((item, index) => {
     const cardBasket = new CardBasket(cloneTemplate(cardBasketTemplate), {
@@ -274,5 +280,6 @@ events.on("order-form:next-click", onOrderFormNextClick);
 events.on("contacts-form:pay-click", onContactsFormPayClick);
 events.on("contacts-form:email-change", onContactsFormInputChange);
 events.on("contacts-form:phone-change", onContactsFormInputChange);
-events.on("order-success-view:click", onOrderSuccessClick)
+events.on("order-success-view:click", onOrderSuccessClick);
+events.on("modal-view:close", onModalClose)
 
