@@ -34,14 +34,14 @@ export class ContactsForm extends Form<ContactsFormData> {
 
     if (actions?.onInputEmailChange) {
       this.inputEmailElement.addEventListener(
-        "change",
+        "input",
         actions.onInputEmailChange
       );
     }
 
     if (actions?.onInputPhoneChange) {
       this.inputPhoneElement.addEventListener(
-        "change",
+        "input",
         actions.onInputPhoneChange
       );
     }

@@ -43,7 +43,7 @@ export class OrderForm extends Form<OrderFormData> {
     }
 
     if (actions?.onAddressChange) {
-      this.addressInput.addEventListener("change", actions.onAddressChange);
+      this.addressInput.addEventListener("input", actions.onAddressChange);
     }
   }
 
