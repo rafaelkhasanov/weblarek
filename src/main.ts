@@ -7,7 +7,7 @@ import { BackendApi } from "./components/services/BackendApi";
 import { Basket as BasketView } from "./components/views/Basket";
 import { CardBasket } from "./components/views/CardBasket";
 import { CardCatalog } from "./components/views/CardCatalog";
-import { CardPreview, CardPreviewData, ProductBuyStateKey } from "./components/views/CardPreview";
+import { CardPreview, ProductBuyStateKey } from "./components/views/CardPreview";
 import { ContactsForm } from "./components/views/ContactsForm";
 import { Gallery } from "./components/views/Gallery";
 import { Header } from "./components/views/Header";
@@ -159,14 +159,19 @@ const onBasketViewOrderClick = () => {
   modalView.render({ content: renderedOrderForm });
 };
 
-const onCardPreviewClick = (product: CardPreviewData) => {
-  if (product.buyState === "delete") {
-    basket.remove(product);
-  } else if (product.buyState === "buy") {
-    basket.add(product);
+const onCardPreviewClick = () => {
+  const seletectedProduct = catalog.getSelectedProduct();
+  if (!seletectedProduct) {
+    return;
   }
 
-  modalView.open();
+  if (basket.hasProduct(seletectedProduct.id)) {
+    basket.remove(seletectedProduct);
+  } else {
+    basket.add(seletectedProduct);
+  }
+
+  modalView.close();
 };
 
 const onOrderFormPaymentClick = (event: Event) => {
