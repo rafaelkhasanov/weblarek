@@ -27,9 +27,9 @@ export class Modal extends Component<IModal> {
       this.container
     );
 
-    if (actions?.onClose){
-      this.modalCloseButton.addEventListener("click", actions.onClose);
-      this.container.addEventListener("click", actions.onClose);
+    if (actions?.onCloseClick){
+      this.modalCloseButton.addEventListener("click", actions.onCloseClick);
+      this.container.addEventListener("click", actions.onCloseClick);
     }
     
     this.modalContent.addEventListener("click", (event: Event) =>
@@ -81,7 +81,7 @@ interface IModal {
  */
 export interface IModalActions {
   /** Обработчик клика для закрытия модального окна */
-  onClose(): void;
+  onCloseClick(): void;
 }
 
 
