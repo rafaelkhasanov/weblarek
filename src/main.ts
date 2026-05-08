@@ -141,9 +141,11 @@ const onBasketChange = () => {
 };
 
 const onBasketViewOrderClick = () => {
+  const { payment, address } = buyer.validate();
   const renderedOrderForm = orderFormView.render({
     address: buyer.address,
-    payment: buyer.payment
+    payment: buyer.payment,
+    errors: [payment, address]
   });
   modalView.render({ content: renderedOrderForm });
 };
@@ -200,9 +202,11 @@ const onEmailOrPhoneChange = () => {
 };
 
 const onOrderFormNextClick = () => {
+  const { email, phone } = buyer.validate();
   const contactsForm = contactsFormView.render({
     email: buyer.email,
-    phone: buyer.phone
+    phone: buyer.phone,
+    errors: [email, phone]
   });
   modalView.render({ content: contactsForm });
 };
