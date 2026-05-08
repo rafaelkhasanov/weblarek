@@ -87,7 +87,7 @@ export class CardPreview extends Card<CardPreviewData> {
    * @param value - URL изображения товара
    */
   set image(value: string) {
-    this.setImage(this.imageElement, value, this.title);
+    this.setImage(this.imageElement, value);
   }
 
   /**

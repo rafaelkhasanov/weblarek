@@ -27,7 +27,6 @@ export abstract class Card<T> extends Component<T> {
       ".card__price",
       this.container
     );
-    this.title = this.titleElement.textContent ?? "";
   }
 
   /**
