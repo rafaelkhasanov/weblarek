@@ -55,4 +55,3 @@ interface IHeader {
 interface IBasketActions {
   onBasketClick(): void;
 }
-

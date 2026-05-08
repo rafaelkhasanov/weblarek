@@ -108,4 +108,3 @@ export class CardPreview extends Card<CardPreviewData> {
  * Используется для передачи данных в компонент CardPreview.
  */
 type CardPreviewData = IProduct & { buyState: ProductBuyStateKey };
-

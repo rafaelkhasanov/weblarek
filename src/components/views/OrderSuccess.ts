@@ -65,4 +65,3 @@ interface IOrderSuccess {
   /** Общая сумма заказа в синапсах */
   totalPrice: number;
 }
-

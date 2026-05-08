@@ -45,4 +45,3 @@ export abstract class Form<T> extends Component<T> {
     this.formErrorsElement.textContent = errorsWithValue.join(", ");
   }
 }
-

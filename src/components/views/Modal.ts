@@ -27,11 +27,11 @@ export class Modal extends Component<IModal> {
       this.container
     );
 
-    if (actions?.onCloseClick){
+    if (actions?.onCloseClick) {
       this.modalCloseButton.addEventListener("click", actions.onCloseClick);
       this.container.addEventListener("click", actions.onCloseClick);
     }
-    
+
     this.modalContent.addEventListener("click", (event: Event) =>
       event.stopPropagation()
     );
@@ -53,7 +53,7 @@ export class Modal extends Component<IModal> {
    */
   open = () => {
     this.container.classList.add("modal_active");
-  }
+  };
 
   /**
    * Закрывает модальное окно.
@@ -62,7 +62,7 @@ export class Modal extends Component<IModal> {
    */
   close = () => {
     this.container.classList.remove("modal_active");
-  }
+  };
 }
 
 /**
@@ -83,5 +83,3 @@ export interface IModalActions {
   /** Обработчик клика для закрытия модального окна */
   onCloseClick(): void;
 }
-
-

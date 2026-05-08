@@ -28,8 +28,8 @@ export class OrderForm extends Form<OrderFormData> {
     );
 
     this.addressInput = ensureElement<HTMLInputElement>(
-        'input[name="address"]',
-        this.container
+      'input[name="address"]',
+      this.container
     );
 
     if (actions?.onNextClick) {
@@ -62,10 +62,10 @@ export class OrderForm extends Form<OrderFormData> {
     });
   }
 
-/**
+  /**
    * Устанавливает значение поля адреса.
    * @param value - значение адреса
- */
+   */
   set address(value: string) {
     this.addressInput.value = value;
   }
@@ -92,4 +92,3 @@ interface IOrderFormActions {
   /** Обработчик изменения поля адреса */
   onAddressChange(event: Event): void;
 }
-

@@ -7,15 +7,18 @@ import { BackendApi } from "./components/services/BackendApi";
 import { Basket as BasketView } from "./components/views/Basket";
 import { CardBasket } from "./components/views/CardBasket";
 import { CardCatalog } from "./components/views/CardCatalog";
-import { CardPreview, ProductBuyStateKey } from "./components/views/CardPreview";
+import {
+  CardPreview,
+  ProductBuyStateKey,
+} from "./components/views/CardPreview";
 import { ContactsForm } from "./components/views/ContactsForm";
 import { Gallery } from "./components/views/Gallery";
 import { Header } from "./components/views/Header";
 import { Modal } from "./components/views/Modal";
 import { OrderForm } from "./components/views/OrderForm";
-import { OrderSuccess } from "./components/views/OrderSuccess";
+import { OrderSuccess as OrderSuccessView } from "./components/views/OrderSuccess";
 import "./scss/styles.scss";
-import { IProduct } from "./types";
+import { IProduct, OrderSuccess } from "./types";
 import { API_URL, CDN_URL } from "./utils/constants";
 import { cloneTemplate, ensureElement } from "./utils/utils";
 
@@ -43,10 +46,10 @@ const headerView = new Header(header, {
 
 const galeryView = new Gallery(galeryElement);
 const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
-    onClick: () => events.emit("card-preview:click")
-  });
+  onClick: () => events.emit("card-preview:click"),
+});
 const modalView = new Modal(modalElement, {
-  onCloseClick: () => events.emit("modal-view:close-click")
+  onCloseClick: () => events.emit("modal-view:close-click"),
 });
 const basketView = new BasketView(cloneTemplate(basketTemplate), {
   onOrderClick: () => events.emit("basket-view:order-click"),
@@ -77,9 +80,12 @@ const contactsFormView = new ContactsForm(cloneTemplate(contactsFormTemplate), {
   },
 });
 
-const orderSuccessView = new OrderSuccess(cloneTemplate(orderSuccessTemplate), {
-  onOrderSuccessClick: () => events.emit("order-success-view:click"),
-});
+const orderSuccessView = new OrderSuccessView(
+  cloneTemplate(orderSuccessTemplate),
+  {
+    onOrderSuccessClick: () => events.emit("order-success-view:click"),
+  }
+);
 
 const backendApi = new BackendApi(new Api(API_URL));
 backendApi
@@ -115,12 +121,12 @@ const onChangeSelectedProduct = () => {
   }
 
   let buyState: ProductBuyStateKey = "buy";
-  if(basket.hasProduct(selectedProduct.id)){
+  if (basket.hasProduct(selectedProduct.id)) {
     buyState = "delete";
   }
 
-  if(selectedProduct.price == null || selectedProduct.price === 0) {
-    buyState = "notAvailable"
+  if (selectedProduct.price == null || selectedProduct.price === 0) {
+    buyState = "notAvailable";
   }
 
   const cardPreviewData = { ...selectedProduct, buyState: buyState };
@@ -147,7 +153,7 @@ const onBasketViewOrderClick = () => {
   const renderedOrderForm = orderFormView.render({
     address: buyer.address,
     payment: buyer.payment,
-    errors: [payment, address]
+    errors: [payment, address],
   });
   modalView.render({ content: renderedOrderForm });
 };
@@ -186,7 +192,7 @@ const onAddressOrPaymentChange = (): void => {
   const renderedOrderForm = orderFormView.render({
     errors: [payment, address],
     payment: buyer.payment,
-    address: buyer.address
+    address: buyer.address,
   });
 
   modalView.render({ content: renderedOrderForm });
@@ -197,7 +203,7 @@ const onEmailOrPhoneChange = () => {
   const renderedOrderForm = contactsFormView.render({
     errors: [email, phone],
     email: buyer.email,
-    phone: buyer.phone
+    phone: buyer.phone,
   });
 
   modalView.render({ content: renderedOrderForm });
@@ -208,7 +214,7 @@ const onOrderFormNextClick = () => {
   const contactsForm = contactsFormView.render({
     email: buyer.email,
     phone: buyer.phone,
-    errors: [email, phone]
+    errors: [email, phone],
   });
   modalView.render({ content: contactsForm });
 };
@@ -233,11 +239,9 @@ const onContactsFormPayClick = () => {
       basket.clear();
       buyer.clear();
     })
-    .catch((reason) => 
-    {
-      console.error(`Ошибка запроса -, ${reason}`)
-    }
-  );
+    .catch((reason) => {
+      console.error(`Ошибка запроса -, ${reason}`);
+    });
 };
 
 const onContactsFormInputChange = (event: Event) => {
@@ -271,8 +275,8 @@ const onModalCloseClick = () => {
 };
 
 const onBasketClear = () => {
-  headerView.render({counter: basket.getCount()})
-}
+  headerView.render({ counter: basket.getCount() });
+};
 
 const renderCardBasketItems = (): HTMLElement[] => {
   const items = basket.getItems().map((item, index) => {
@@ -310,4 +314,4 @@ events.on("contacts-form:email-change", onContactsFormInputChange);
 events.on("contacts-form:phone-change", onContactsFormInputChange);
 events.on("order-success-view:click", onOrderSuccessClick);
 events.on("modal-view:close-click", onModalCloseClick);
-events.on("basket:clear", onBasketClear)
+events.on("basket:clear", onBasketClear);

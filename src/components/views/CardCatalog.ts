@@ -1,7 +1,7 @@
 import { CardData, ICardActions, IProduct } from "../../types";
 import { categoryMap } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { Card} from "./Card";
+import { Card } from "./Card";
 
 type CategoryKey = keyof typeof categoryMap;
 
@@ -69,4 +69,3 @@ export class CardCatalog extends Card<CardCatalogData> {
  * Используется для передачи данных в компонент CardCatalog.
  */
 type CardCatalogData = CardData & Pick<IProduct, "category" | "image">;
-

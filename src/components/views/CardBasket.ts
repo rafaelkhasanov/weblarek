@@ -50,4 +50,3 @@ export class CardBasket extends Card<CardBasketData> {
  * Расширяет базовый тип CardData и добавляет поле номера позиции.
  */
 type CardBasketData = CardData & { index: number };
-

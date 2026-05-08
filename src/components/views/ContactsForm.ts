@@ -82,4 +82,3 @@ interface IContactsFormActions {
   /** Обработчик изменения поля phone */
   onInputPhoneChange(event: Event): void;
 }
-
