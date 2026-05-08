@@ -38,3 +38,17 @@ export type OrderSuccess = {
     total: number;
 }
 
+/**
+ * Тип данных карточки товара.
+ * Описывает минимальный набор полей для отображения карточки.
+ */
+export type CardData = Pick<IProduct, "title" | "price">
+
+/**
+ * Интерфейс обработчиков событий карточки.
+ * Содержит callback-функции для обработки пользовательских действий.
+ */
+export interface ICardActions {
+  /** Обработчик клика по карточке */
+  onClick(event: Event): void;
+}

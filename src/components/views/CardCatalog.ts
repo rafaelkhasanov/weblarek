@@ -1,7 +1,7 @@
-import { IProduct } from "../../types";
+import { CardData, ICardActions, IProduct } from "../../types";
 import { categoryMap } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { Card, CardData, ICardActions } from "./Card";
+import { Card} from "./Card";
 
 type CategoryKey = keyof typeof categoryMap;
 
@@ -68,5 +68,5 @@ export class CardCatalog extends Card<CardCatalogData> {
  * Расширяет базовый тип CardData и добавляет поля категории и изображения.
  * Используется для передачи данных в компонент CardCatalog.
  */
-export type CardCatalogData = CardData & Pick<IProduct, "category" | "image">;
+type CardCatalogData = CardData & Pick<IProduct, "category" | "image">;
 

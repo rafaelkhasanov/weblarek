@@ -29,7 +29,7 @@ export class Gallery extends Component<IGalery> {
  * Определяет структуру данных, которые могут быть переданы
  * в метод render для отображения в компоненте Gallery.
  */
-export interface IGalery {
+interface IGalery {
   /** Массив DOM-элементов товаров каталога для отображения */
   catalog: HTMLElement[];
 }

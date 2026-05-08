@@ -1,7 +1,7 @@
-import { IProduct } from "../../types";
+import { ICardActions, IProduct } from "../../types";
 import { categoryMap, productBuyStateMap } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { Card, ICardActions } from "./Card";
+import { Card } from "./Card";
 
 type CategoryKey = keyof typeof categoryMap;
 
@@ -107,5 +107,5 @@ export class CardPreview extends Card<CardPreviewData> {
  * Содержит все поля из интерфейса IProduct и добавляет поле состояния покупки.
  * Используется для передачи данных в компонент CardPreview.
  */
-export type CardPreviewData = IProduct & { buyState: ProductBuyStateKey };
+type CardPreviewData = IProduct & { buyState: ProductBuyStateKey };
 

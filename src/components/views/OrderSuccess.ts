@@ -51,7 +51,7 @@ export class OrderSuccess extends Component<IOrderSuccess> {
  * Интерфейс обработчиков событий сообщения об успешном заказе.
  * Содержит callback-функции для обработки событий.
  */
-export interface IOrderSuccessActions {
+interface IOrderSuccessActions {
   /** Обработчик клика по кнопке закрытия сообщения */
   onOrderSuccessClick(): void;
 }
@@ -61,7 +61,7 @@ export interface IOrderSuccessActions {
  * Определяет структуру данных, которые могут быть переданы
  * в метод render для отображения в компоненте OrderSuccess.
  */
-export interface IOrderSuccess {
+interface IOrderSuccess {
   /** Общая сумма заказа в синапсах */
   totalPrice: number;
 }

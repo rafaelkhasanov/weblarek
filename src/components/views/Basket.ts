@@ -65,7 +65,7 @@ export class Basket extends Component<IBasket> {
  * Определяет структуру данных, которые могут быть переданы
  * в метод render для отображения в компоненте Basket.
  */
-export interface IBasket {
+interface IBasket {
   /** Массив DOM-элементов товаров в корзине */
   basketItems: HTMLElement[];
   /** Общая стоимость товаров в корзине */
@@ -76,7 +76,7 @@ export interface IBasket {
  * Интерфейс обработчиков событий корзины.
  * Содержит callback-функции для обработки пользовательских действий.
  */
-export interface IBasketActions {
+interface IBasketActions {
   /** Обработчик нажатия на кнопку оформления заказа */
   onOrderClick(): void;
 }

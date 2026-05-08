@@ -68,13 +68,13 @@ export class ContactsForm extends Form<ContactsFormData> {
  * Тип данных формы контактов.
  * Содержит поля email и phone из Buyer, а также ошибки валидации.
  */
-export type ContactsFormData = Pick<Buyer, "phone" | "email"> & FormData;
+type ContactsFormData = Pick<Buyer, "phone" | "email"> & FormData;
 
 /**
  * Интерфейс обработчиков событий формы контактов.
  * Расширяет функциональность обработки событий ввода и оплаты.
  */
-export interface IContactsFormActions {
+interface IContactsFormActions {
   /** Обработчик клика по кнопке оплаты */
   onPayClick(): void;
   /** Обработчик изменения поля email */

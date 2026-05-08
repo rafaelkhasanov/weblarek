@@ -47,12 +47,12 @@ export class Header extends Component<IHeader> {
  * Определяет структуру данных, которые могут быть переданы
  * в метод render для отображения в компоненте Header.
  */
-export interface IHeader {
+interface IHeader {
   /** Количество товаров в корзине */
   counter: number;
 }
 
-export interface IBasketActions {
+interface IBasketActions {
   onBasketOpen(): void;
 }
 

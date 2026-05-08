@@ -75,7 +75,7 @@ export class OrderForm extends Form<OrderFormData> {
  * Тип данных формы оформления заказа.
  * Содержит способ оплаты, адрес и ошибки валидации.
  */
-export type OrderFormData = {
+type OrderFormData = {
   payment: string | null;
   address: string;
 } & FormData;
@@ -84,7 +84,7 @@ export type OrderFormData = {
  * Интерфейс обработчиков событий формы оформления заказа.
  * Содержит обработчики клика по кнопкам и изменения поля адреса.
  */
-export interface IOrderFormActions {
+interface IOrderFormActions {
   /** Обработчик клика по кнопке оформления заказа */
   onNextClick(): void;
   /** Обработчик клика по кнопке выбора способа оплаты */

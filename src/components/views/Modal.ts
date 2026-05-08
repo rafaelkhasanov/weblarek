@@ -63,20 +63,11 @@ export class Modal extends Component<IModal> {
 }
 
 /**
- * Интерфейс обработчиков событий модального окна.
- * Содержит callback-функции для обработки событий модального окна.
- */
-export interface IModalActions {
-  /** Обработчик клика для закрытия модального окна */
-  onClose(): void;
-}
-
-/**
  * Интерфейс данных модального окна.
  * Определяет структуру данных, которые могут быть переданы
  * в метод render для отображения в компоненте Modal.
  */
-export interface IModal {
+interface IModal {
   /** Содержимое модального окна */
   content: HTMLElement;
 }

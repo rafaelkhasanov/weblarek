@@ -1,5 +1,6 @@
+import { CardData, ICardActions } from "../../types";
 import { ensureElement } from "../../utils/utils";
-import { Card, CardData, ICardActions } from "./Card";
+import { Card } from "./Card";
 
 /**
  * Класс карточки товара в корзине покупателя.
@@ -48,5 +49,5 @@ export class CardBasket extends Card<CardBasketData> {
  * Тип данных карточки товара в корзине.
  * Расширяет базовый тип CardData и добавляет поле номера позиции.
  */
-export type CardBasketData = CardData & { index: number };
+type CardBasketData = CardData & { index: number };
 

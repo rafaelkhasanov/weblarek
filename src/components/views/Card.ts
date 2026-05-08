@@ -1,4 +1,3 @@
-import { IProduct } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 
@@ -46,19 +45,3 @@ export abstract class Card<T> extends Component<T> {
     this.priceElement.textContent = `${value ?? 0} синапсов`;
   }
 }
-
-/**
- * Тип данных карточки товара.
- * Описывает минимальный набор полей для отображения карточки.
- */
-export type CardData = Pick<IProduct, "title" | "price">
-
-/**
- * Интерфейс обработчиков событий карточки.
- * Содержит callback-функции для обработки пользовательских действий.
- */
-export interface ICardActions {
-  /** Обработчик клика по карточке */
-  onClick(event: Event): void;
-}
-
