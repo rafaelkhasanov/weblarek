@@ -49,6 +49,11 @@ const headerView = new Header(header, {
 });
 
 const galeryView = new Gallery(galeryElement);
+const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
+    onClick: () => {
+      events.emit("card-preview:click");
+    },
+  });
 const modalView = new Modal(modalElement);
 const basketView = new BasketView(cloneTemplate(basketTemplate), {
   onOrderClick: () => events.emit("basket-view:order-click"),
@@ -128,12 +133,6 @@ const onChangeSelectedProduct = () => {
   }
 
   const cardPreviewData = { ...selectedProduct, buyState: buyState };
-  const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
-    onClick: () => {
-      events.emit("card-preview:click", cardPreviewData);
-    },
-  });
-
   const renderedPreview = cardPreview.render(cardPreviewData);
   modalView.open();
   modalView.render({ content: renderedPreview });
