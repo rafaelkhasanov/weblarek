@@ -140,11 +140,10 @@ const onCardBasketViewDelete = (item: IProduct) => {
 };
 
 const onBasketChange = () => {
-  const renderedBasketView = basketView.render({
+  basketView.render({
     basketItems: renderCardBasketItems(),
     price: basket.getTotalPrice(),
   });
-  modalView.render({ content: renderedBasketView });
   headerView.render({ counter: basket.getCount() });
 };
 
