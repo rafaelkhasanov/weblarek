@@ -257,12 +257,8 @@ const onContactsFormInputChange = (event: Event) => {
 };
 
 const onHeaderViewBasketClick = () => {
-  const renderedBasketView = basketView.render({
-    basketItems: renderCardBasketItems(),
-    price: basket.getTotalPrice(),
-  });
   modalView.open();
-  modalView.render({ content: renderedBasketView });
+  modalView.render({ content: basketView.render() });
 };
 
 const onOrderSuccessClick = () => {
