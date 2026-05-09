@@ -274,10 +274,6 @@ const onModalCloseClick = () => {
   modalView.close();
 };
 
-const onBasketClear = () => {
-  headerView.render({ counter: basket.getCount() });
-};
-
 const renderCardBasketItems = (): HTMLElement[] => {
   const items = basket.getItems().map((item, index) => {
     const cardBasket = new CardBasket(cloneTemplate(cardBasketTemplate), {
@@ -314,4 +310,3 @@ events.on("contacts-form:email-change", onContactsFormInputChange);
 events.on("contacts-form:phone-change", onContactsFormInputChange);
 events.on("order-success-view:click", onOrderSuccessClick);
 events.on("modal-view:close-click", onModalCloseClick);
-events.on("basket:clear", onBasketClear);
